@@ -171,7 +171,6 @@ html, body{
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 700;
-  cursor: pointer;
   transition: 0.2s all ease-in-out;
 }
 
@@ -182,6 +181,7 @@ html, body{
 
 .btn__active {
   background-color: var(--primary--moderate-cyan);
+  cursor: pointer;
 }
 
 .btn__active:hover {
@@ -228,6 +228,7 @@ html, body{
 }
 
 .stats__item {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -674,7 +675,6 @@ html, body{
   .nav-desktop__item {
     margin: 0;
     width: 100%;
-    /* border-bottom: 1px solid var(--gray-text); */
     display: inline;
   }
 
@@ -712,8 +712,7 @@ html, body{
   }
 
   .stats__item:not(:last-child) {
-    padding-right: 3rem;
-    border-right: 1px solid red;
+    border-right: 1px solid var(--gray-text);
     border-bottom: 1px solid transparent;
   }
 
