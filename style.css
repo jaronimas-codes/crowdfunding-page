@@ -36,6 +36,11 @@ body {
   position: relative;
 }
 
+html, body{
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .header {
   position: relative;
 
