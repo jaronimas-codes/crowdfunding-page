@@ -21,16 +21,6 @@ const projectSection = document.querySelector(".project");
 
 const alertSection = document.querySelector(".alert");
 
-// dom formating
-
-statsTotalBacked.innerText = parseInt(statsTotalBacked.innerText)
-  .toString()
-  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-
-statsTotalBackers.innerText = parseInt(statsTotalBackers.innerText)
-  .toString()
-  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-
 // PROGRESS BAR
 
 progressBarChange();
