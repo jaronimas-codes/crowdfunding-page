@@ -21,12 +21,15 @@ const projectSection = document.querySelector(".project");
 
 const alertSection = document.querySelector(".alert");
 
-// DOM MONEY FORMATING
+// dom formating
 
+statsTotalBacked.innerText = parseInt(statsTotalBacked.innerText)
+  .toString()
+  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 
-statsTotalBacked.innerText = parseInt(statsTotalBacked.innerText).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-
-statsTotalBackers.innerText = parseInt(statsTotalBackers.innerText).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+statsTotalBackers.innerText = parseInt(statsTotalBackers.innerText)
+  .toString()
+  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 
 // PROGRESS BAR
 
@@ -205,7 +208,6 @@ function styleWhenNotBooked() {
 
 projectSection.addEventListener("click", (e) => {
   if (!e.target.matches(".btn__active")) return;
-
   showModal();
 });
 
