@@ -64,7 +64,7 @@
         <footer class="about__footer">
           <button class="btn btn__active back">
             <a href="#">Back this project</a>
-            </button>
+          </button>
           <button class="btn__bookmark btn__bookmark--desktop">
             <div class="bookmark__icon">
               <svg
@@ -93,6 +93,7 @@
           </button>
         </footer>
       </section>
+
       <section class="stats" id="stats">
         <ul class="stats__list">
           <li class="stats__item">
@@ -152,7 +153,9 @@
                 <span class="project__item__number one">101</span>
                 <span class="project__item__left">left</span>
               </div>
-              <a href="#modal"><button class="btn btn__active">Select Reward</button></a>
+              <a href="#modal"
+                ><button class="btn btn__active">Select Reward</button></a
+              >
             </div>
           </li>
           <!-- FIRST OPTION END -->
@@ -172,7 +175,9 @@
                 <span class="project__item__number two">64</span>
                 <span class="project__item__left">left</span>
               </div>
-              <a href="#modal"><button class="btn btn__active">Select Reward</button></a>
+              <a href="#modal"
+                ><button class="btn btn__active">Select Reward</button></a
+              >
             </div>
           </li>
           <!-- FIRST OPTION END -->
@@ -193,7 +198,7 @@
                 <span class="project__item__number three">0</span>
                 <span class="project__item__left">left</span>
               </div>
-              <button class="btn">Out of Stock</button>
+              <a href=""><button class="btn">Out of Stock</button></a>
             </div>
           </li>
           <!-- FIRST OPTION END -->
@@ -277,7 +282,7 @@
               special Backer member list.
             </p>
             <div class="modal__item__counter">
-              <span class="modal__item__number one">101</span>
+              <span class="modal__item__number one"></span>
               <span class="modal__item__left">left</span>
             </div>
           </div>
@@ -294,7 +299,9 @@
                   min="25"
                 />
               </span>
-              <button class="btn btn__active">Continue</button>
+              <a href="#completed"
+                ><button class="btn btn__active">Continue</button></a
+              >
             </div>
           </div>
           <!-- HIDDEN MODAL PART END -->
@@ -321,7 +328,7 @@
               included.
             </p>
             <div class="modal__item__counter">
-              <span class="modal__item__number two">64</span>
+              <span class="modal__item__number two"></span>
               <span class="modal__item__left">left</span>
             </div>
           </div>
@@ -337,7 +344,9 @@
                   min="75"
                 />
               </span>
-              <button class="btn btn__active">Continue</button>
+              <a href="#completed"
+                ><button class="btn btn__active">Continue</button></a
+              >
             </div>
           </div>
         </li>
@@ -350,7 +359,7 @@
               <input type="radio" name="radio" id="radio-four" disabled />
               <div class="modal__item__title">
                 <label for="radio-four" class="modal__item__label"
-                  >Mahogany Edition<span class="modal__item__subtitle"
+                  >Mohogany Edition<span class="modal__item__subtitle"
                     >Pledge $200 or more</span
                   ></label
                 >
@@ -362,7 +371,7 @@
               Shipping is included.
             </p>
             <div class="modal__item__counter">
-              <span class="modal__item__number three">0</span>
+              <span class="modal__item__number three"></span>
               <span class="modal__item__left">left</span>
             </div>
           </div>
@@ -380,7 +389,7 @@
                   disabled
                 />
               </span>
-              <button class="btn">Continue</button>
+              <a href="#completed"><button class="btn">Continue</button></a>
             </div>
           </div>
           <!-- HIDDEN MODAL PART END -->
@@ -392,7 +401,7 @@
     <!-- MODAL END -->
 
     <!-- MODAL COMPLETED START -->
-    <section class="modal__completed">
+    <section id="completed" class="modal__completed">
       <img src="./images/icon-check.svg" alt="modal check icon" />
       <h1 class="modal__completed__title">Thanks for your support!</h1>
       <p class="modal__completed__paragraph">
