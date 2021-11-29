@@ -21,9 +21,36 @@ const projectSection = document.querySelector(".project");
 
 const alertSection = document.querySelector(".alert");
 
-// PROGRESS BAR
+const modalLeftElements = document.querySelectorAll(".modal__item__number");
+const projectLeftElements = document.querySelectorAll(".project__item__number");
+
+let dataArray = [101, 64, 0];
+
+// EVOKING FUNCTIONS
 
 progressBarChange();
+populateTheDom();
+
+// FUNCTION PARADISE
+
+// Storing project amount to an array
+
+function populateTheDom() {
+  projectLeftElements.forEach((el, i) => {
+    el.innerHTML = dataArray[i];
+  });
+  modalLeftElements.forEach((el, i) => {
+    el.innerHTML = dataArray[i];
+  });
+}
+
+function updateTheArray() {
+  modalLeftElements.forEach((el, i) => {
+    dataArray[i] = parseInt(el.innerHTML);
+  });
+}
+
+// PROGRESS BAR
 
 function progressBarChange() {
   bar.style.width = `${
@@ -32,15 +59,71 @@ function progressBarChange() {
   }%`;
 }
 
-// HIDE AND SHOW EVENTLISTENERS START
+function showModal() {
+  modal.classList.add("visible");
+  overall.classList.add("visible");
+}
+
+function hideModal() {
+  modal.classList.remove("visible");
+  overall.classList.remove("visible");
+}
+
+function increaseTheStats(closestInputValue) {
+  statsTotalBacked.innerText =
+    parseInt(statsTotalBacked.innerText) + closestInputValue;
+
+  statsTotalBackers.innerText = parseInt(statsTotalBackers.innerText) + 1;
+}
+
+function resetChecked() {
+  modal
+    .querySelectorAll(".modal__item--clicked")
+    .forEach((item) => item.classList.remove("clicked"));
+
+  // HERE UNCHECK RADIO BUTTONS
+
+  modal.querySelectorAll(".modal__item").forEach((item) => {
+    item.querySelector('input[type = "radio"]').checked = false;
+    item.querySelector('input[type = "number"]').value = item.querySelector(
+      'input[type = "number"]'
+    ).min;
+  });
+}
+
+function showAlert() {
+  alertSection.classList.add("visible");
+  overall.classList.add("visible");
+  alertSection.addEventListener("click", (e) => {
+    if (e.target.matches(".btn")) {
+      alertSection.classList.remove("visible");
+    }
+  });
+}
+
+function styleWhenBooked() {
+  bookmarkName.innerText = "Bookmarked";
+  bookmarkName.style.color = "#3cb4ac";
+  document.querySelector(".svg-circle").style.fill = "#3cb4ac";
+  document.querySelector(".svg-path").style.fill = "#eee";
+}
+
+function styleWhenNotBooked() {
+  bookmarkName.innerText = "Bookmark";
+  bookmarkName.style.color = "#a3a3a3";
+  document.querySelector(".svg-circle").style.fill = "#2F2F2F";
+  document.querySelector(".svg-path").style.fill = "#B1B1B1";
+}
+
+// FUNCTION PARADISE END
+
+// EVENT LISTENERS
 
 hamburgerMenuIcon.addEventListener("click", () => {
   navigationMenu.classList.add("visible");
   overall.classList.add("visible");
   hamburgerMenuIcon.src = "./images/icon-close-menu.svg";
 });
-
-// MOBILE MENU SHOW/HIDE SCRIPT
 
 navigationMenu.addEventListener("click", (e) => {
   if (!e.target.matches(".link")) return;
@@ -55,83 +138,68 @@ overall.addEventListener("click", () => {
   hamburgerMenuIcon.src = "./images/icon-hamburger.svg";
 });
 
-function showModal() {
-  modal.classList.add("visible");
-  overall.classList.add("visible");
-}
-
-function hideModal() {
-  modal.classList.remove("visible");
-  overall.classList.remove("visible");
-}
-
 backThisProjectBtn.addEventListener("click", showModal);
 
 modalCloseIcon.addEventListener("click", hideModal);
 
 modal.addEventListener("click", (e) => {
   if (e.target.matches(".btn")) {
-    const numb = parseInt(
+    // Select closest input value
+
+    const closestInputValue = parseInt(
       e.target.closest(".modal__item-wrap").querySelector(".modal__item-input")
         .value
     );
 
-    // CHECK THE BACKED AMOUNT
+    // CHECK IF VALUE IS VALID (more that 0)
 
-    if (isNaN(numb)) {
+    if (isNaN(closestInputValue)) {
+      // VALUE IS NOT VALID
       showAlert();
       resetChecked();
     } else {
-      // NUMBER INCREASINIG PART START
-      statsTotalBacked.innerText = parseInt(statsTotalBacked.innerText) + numb;
+      // VALUE IS VALID
+      // INCREASE THE STATS
+      increaseTheStats(closestInputValue);
+      progressBarChange();
+      resetChecked();
+      // CLOSE THE MODAL SHOW COMPLETED
 
-      statsTotalBackers.innerText = parseInt(statsTotalBackers.innerText) + 1;
+      // ??????
+      modal.classList.remove("visible");
+      modalCompleted.classList.add("visible");
+      // ??????
+
+      ////LEFT NUMBERS PART
 
       const theTarget = e.target
         .closest(".modal__item")
         .querySelector(".modal__item__number");
 
-      if (theTarget) {
-        theTarget.innerText = parseInt(theTarget.innerText) - 1;
+      if (!theTarget) return;
+
+      if (parseInt(theTarget.innerHTML) === 0) {
+        disableTheOption(theTarget);
+      } else {
+        theTarget.innerText = parseInt(theTarget.innerHTML) - 1;
+
+        updateTheArray();
+        populateTheDom();
       }
-
-      // NUMBER INCREASINIG PART END
-
-      progressBarChange();
-      modal.classList.remove("visible");
-      modalCompleted.classList.add("visible");
-
-      resetChecked();
-    }
-
-    // UNCLICK ALL RADIO BUTTONS
-
-    function resetChecked() {
-      modal
-        .querySelectorAll(".modal__item--clicked")
-        .forEach((item) => item.classList.remove("clicked"));
-
-      // HERE UNCHECK RADIO BUTTONS
-
-      modal.querySelectorAll(".modal__item").forEach((item) => {
-        item.querySelector('input[type = "radio"]').checked = false;
-        item.querySelector('input[type = "number"]').value = item.querySelector(
-          'input[type = "number"]'
-        ).min;
-      });
     }
   }
 });
 
-function showAlert() {
-  alertSection.classList.add("visible");
-  overall.classList.add("visible");
-  alertSection.addEventListener("click", (e) => {
-    if (e.target.matches(".btn")) {
-      alertSection.classList.remove("visible");
-    }
-  });
+// FINAL ROUND
+
+function disableTheOption(target) {
+  target.closest(".modal__item").classList.add("modal__item--passive");
+  target
+    .closest(".modal__item")
+    .querySelector('input[type = "radio"]').disabled = true;
 }
+
+// FINAL ROUND END
 
 modalCompleted.addEventListener("click", (e) => {
   if (e.target.matches(".btn")) {
@@ -155,8 +223,6 @@ modal.addEventListener("click", (e) => {
 
 // BOOKMARK SCRIPT START
 
-// LOCAL STORAGE THING
-
 // LOCAL STORAGE DEFAULT
 if (!localStorage.getItem("Bookmark")) {
   localStorage.setItem("Bookmark", "false");
@@ -177,20 +243,6 @@ bookmarkIcon.addEventListener("click", () => {
     styleWhenNotBooked();
   }
 });
-
-function styleWhenBooked() {
-  bookmarkName.innerText = "Bookmarked";
-  bookmarkName.style.color = "#3cb4ac";
-  document.querySelector(".svg-circle").style.fill = "#3cb4ac";
-  document.querySelector(".svg-path").style.fill = "#eee";
-}
-
-function styleWhenNotBooked() {
-  bookmarkName.innerText = "Bookmark";
-  bookmarkName.style.color = "#a3a3a3";
-  document.querySelector(".svg-circle").style.fill = "#2F2F2F";
-  document.querySelector(".svg-path").style.fill = "#B1B1B1";
-}
 
 // BOOKMARK SCRIPT END
 
